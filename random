@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char T[100], P[100];
+    int i, j;
+    int n, m;
+    int found = 0;
+
+    printf("Enter the text string: ");
+    gets(T);
+
+    printf("Enter the pattern string: ");
+    gets(P);
+
+    n = strlen(T);
+    m = strlen(P);
+
+    printf("\nPattern found at index: ");
+
+    for(i = 0; i <= n - m; i++)
+    {
+        for(j = 0; j < m; j++)
+        {
+            if(T[i + j] != P[j])
+                break;
+        }
+
+        if(j == m)
+        {
+            printf("%d ", i);
+            found = 1;
+        }
+    }
+
+    if(!found)
+        printf("No Match Found");
+
+    return 0;
+}
