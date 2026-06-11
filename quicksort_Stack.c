@@ -1,31 +1,55 @@
 #include <stdio.h>
 
-void matrixMultiplication(int matrix_a[][3], int matrix_b[][3], int M, int P, int N) {
-    int matrix_c[10][10];   // simple fixed size
-    int i, j, k;
+void quickSort(int arr[], int low, int high);
+int partition(int arr[], int low, int high);
 
-    for (i = 0; i < M; i++) {
-        for (j = 0; j < N; j++) {
-            matrix_c[i][j] = 0;
-            for (k = 0; k < P; k++) {
-                matrix_c[i][j] = matrix_c[i][j] + matrix_a[i][k] * matrix_b[k][j];
-            }
-        }
+int main() {
+    int arr[100], n, i;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter elements:\n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
     }
 
-    for (i = 0; i < M; i++) {
-        for (j = 0; j < N; j++) {
-            printf("%d ", matrix_c[i][j]);
-        }
-        printf("\n");
+    quickSort(arr, 0, n-1);
+
+    printf("Sorted array:\n");
+    for(i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+
+    return 0;
+}
+
+void quickSort(int arr[], int low, int high) {
+    if(low < high) {
+        int pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi-1);
+        quickSort(arr, pi+1, high);
     }
 }
 
-int main() {
-    int matrix_a[][3] = {{1, -2, 3}, {0, 4, 5}};   // 2 x 3
-    int matrix_b[][3] = {{3, 0, -6}, {2, -3, 1}, {2, 5, 3}};  // 3 x 3
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];   // last element as pivot
+    int i = low - 1;
+    int j, temp;
 
-    matrixMultiplication(matrix_a, matrix_b, 2, 3, 3);
+    for(j = low; j < high; j++) {
+        if(arr[j] < pivot) {
+            i++;
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
 
-    return 0;
+    temp = arr[i+1];
+    arr[i+1] = arr[high];
+    arr[high] = temp;
+
+    return i+1;
 }

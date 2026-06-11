@@ -1,30 +1,14 @@
 #include <stdio.h>
 
 int main() {
-    int arr[100], n, key, i;
-    int found = 0;
+    int arr[5] = {10, 20, 30, 40, 50};
+    int i;
 
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
+    printf("Array elements are: ");
 
-    printf("Enter elements:\n");
-    for(i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
+    for(i = 0; i < 5; i++) {
+        printf("%d ", arr[i]);
     }
-
-    printf("Enter value to search: ");
-    scanf("%d", &key);
-
-    for(i = 0; i < n; i++) {
-        if(arr[i] == key) {
-            printf("Found at position %d", i+1);
-            found = 1;
-            break;
-        }
-    }
-
-    if(found == 0)
-        printf("Not found");
 
     return 0;
 }

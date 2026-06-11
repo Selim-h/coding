@@ -1,60 +1,34 @@
 #include <stdio.h>
-
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
-
-    for(int j = low; j < high; j++) {
-        if(arr[j] <= pivot) {
-            i++;
-            swap(&arr[i], &arr[j]);
-        }
-    }
-
-    swap(&arr[i+1], &arr[high]);
-    return i+1;
-}
-
-void quickSort(int arr[], int low, int high) {
-    int stack[100];
-    int top = -1;
-
-    stack[++top] = low;
-    stack[++top] = high;
-
-    while(top >= 0) {
-        high = stack[top--];
-        low = stack[top--];
-
-        int pi = partition(arr, low, high);
-
-        if(pi - 1 > low) {
-            stack[++top] = low;
-            stack[++top] = pi - 1;
-        }
-
-        if(pi + 1 < high) {
-            stack[++top] = pi + 1;
-            stack[++top] = high;
-        }
-    }
-}
+#include <string.h>
 
 int main() {
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = 6;
+    char T[100], P[100];
+    int i, j, found = -1;
 
-    quickSort(arr, 0, n-1);
+    printf("Enter main string: ");
+    scanf("%s", T);
 
-    printf("Sorted array:\n");
-    for(int i = 0; i < n; i++)
-        printf("%d ", arr[i]);
+    printf("Enter pattern: ");
+    scanf("%s", P);
+
+    int n = strlen(T);
+    int m = strlen(P);
+
+    for(i = 0; i <= n - m; i++) {
+        for(j = 0; j < m; j++) {
+            if(T[i+j] != P[j])
+                break;
+        }
+        if(j == m) {
+            found = i;
+            break;
+        }
+    }
+
+    if(found != -1)
+        printf("Pattern found at index %d\n", found);
+    else
+        printf("Pattern not found\n");
 
     return 0;
 }
